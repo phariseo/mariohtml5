@@ -1,20 +1,20 @@
 pipeline {
          agent any
          stages {
-                 stage('One') {
+                 stage('Clone repository') {
+                    steps {
+                        echo 'Cloning repository...'
+                        script{
+                        checkout scm
+                        }
+                    }
+                 }
+
+                 stage('Build') {
                  steps {
-                     echo 'Hi, welcome to pipeline demo...'
-                 }
-                 }
-                 stage('Two') {
-                 steps {
-                    echo('Sample testing of Stage 2')
-                 }
-                 }
-                 stage('Three') {
-                
-                 steps {
-                       echo 'Thanks for using Jenkins Pipeline'
+                    script{
+                        app = docker.build("test")
+                    }
                  }
                  }
               }
